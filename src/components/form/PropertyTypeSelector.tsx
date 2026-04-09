@@ -24,18 +24,18 @@ export default function PropertyTypeSelector({ value, onChange }: Props) {
             type="button"
             onClick={() => onChange(t.value)}
             className={cn(
-              'flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all text-sm font-medium',
+              'flex items-center gap-3 px-4 py-2.5 rounded-xl border-2 transition-all text-[14px] font-medium',
               value === t.value
                 ? 'border-purple-600 bg-purple-50 text-purple-700'
                 : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'
             )}
           >
+            <span className="flex-1 text-left">{t.label}</span>
             <img
               src={asset(value === t.value ? t.imgSel : t.img)}
               alt={t.label}
-              className="h-12 w-auto"
+              className="h-7 w-auto flex-shrink-0"
             />
-            {t.label}
           </button>
         ))}
       </div>
