@@ -209,8 +209,8 @@ export default function Home() {
   // ── Form (single column, centered) ──
   return (
     <>
-      <Header />
-      <Hero activeTab={activeTab} onTabChange={setActiveTab} />
+      <Header activeTab={activeTab} onTabChange={setActiveTab} />
+      <Hero />
       <main className="max-w-3xl mx-auto px-4 py-8 space-y-6">
         {activeTab !== 'vender' && (
           <div className="bg-white rounded-2xl p-12 shadow-sm text-center">

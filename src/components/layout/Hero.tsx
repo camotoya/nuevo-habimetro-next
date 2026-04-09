@@ -1,12 +1,4 @@
 'use client';
-import { cn } from '@/lib/utils';
-
-const TABS = [
-  { id: 'vender', label: 'Vender' },
-  { id: 'comprar', label: 'Comprar' },
-  { id: 'broker', label: 'Soy Broker' },
-  { id: 'cuanto', label: '¿Cuánto cuesta mi vivienda?' },
-];
 
 const STATS = [
   { value: '+500K', label: 'avalúos realizados' },
@@ -14,36 +6,10 @@ const STATS = [
   { value: '5 min', label: 'promedio' },
 ];
 
-interface Props {
-  activeTab?: string;
-  onTabChange?: (tab: string) => void;
-}
-
-export default function Hero({ activeTab = 'vender', onTabChange }: Props) {
+export default function Hero() {
   return (
-    <section className="bg-gradient-to-br from-[#7C01FF] to-[#3D0099] text-white">
-      {/* Tabs */}
-      <div className="mx-auto max-w-[1200px] px-4 pt-6">
-        <div className="flex gap-1 flex-wrap">
-          {TABS.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => onTabChange?.(tab.id)}
-              className={cn(
-                'px-5 py-2.5 rounded-t-xl text-[15px] font-medium transition-all',
-                activeTab === tab.id
-                  ? 'bg-white/20 text-white'
-                  : 'text-white/60 hover:text-white/80 hover:bg-white/10'
-              )}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Hero content */}
-      <div className="mx-auto max-w-[1200px] px-4 pb-12 pt-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <section className="bg-gradient-to-br from-[#7C01FF] to-[#3D0099] text-white py-12 sm:py-16">
+      <div className="mx-auto max-w-[1200px] px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div>
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
             Conoce el valor de tu inmueble gratis y en minutos
