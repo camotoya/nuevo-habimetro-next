@@ -18,7 +18,7 @@ import StepCharacteristics from '@/components/form/StepCharacteristics';
 import StepDetails from '@/components/form/StepDetails';
 import StepContact from '@/components/form/StepContact';
 
-const ResultTabs = dynamic(() => import('@/components/panel/ResultTabs'), { ssr: false });
+import ResultCards from '@/components/panel/ResultCards';
 
 import ResultsHero from '@/components/results/ResultsHero';
 import EligibilityCards from '@/components/results/EligibilityCards';
@@ -283,8 +283,8 @@ export default function Home() {
           )}
         </div>
 
-        {/* Result tabs — always visible, starts with Colombia map */}
-        <ResultTabs
+        {/* Result cards — always visible */}
+        <ResultCards
           georef={apiState.georef}
           pois={apiState.pois}
           catastral={apiState.catastral}

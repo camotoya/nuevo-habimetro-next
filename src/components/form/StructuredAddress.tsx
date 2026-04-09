@@ -14,7 +14,7 @@ interface Props {
 export default function StructuredAddress({ tipoVia, num1, num2, num3, address, onChange }: Props) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-600 mb-1">Dirección</label>
+      <label className="block text-[15px] font-medium text-gray-600 mb-1">Dirección</label>
       <div className="flex flex-wrap items-center gap-1.5">
         <select
           value={tipoVia}

@@ -26,7 +26,7 @@ export default function StepContact({ formData, onChange }: Props) {
     <div className="space-y-4">
       {/* Nombre completo */}
       <div>
-        <label className="block text-sm font-medium text-gray-600 mb-1.5">
+        <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
           Nombre completo
         </label>
         <input
@@ -41,7 +41,7 @@ export default function StepContact({ formData, onChange }: Props) {
       {/* Email + Phone in 2-col grid */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1.5">
+          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
             Correo electrónico
           </label>
           <input
@@ -53,7 +53,7 @@ export default function StepContact({ formData, onChange }: Props) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1.5">Teléfono</label>
+          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">Teléfono</label>
           <input
             type="tel"
             placeholder="300 123 4567"
@@ -66,7 +66,7 @@ export default function StepContact({ formData, onChange }: Props) {
 
       {/* Intent buttons in 2x2 grid */}
       <div>
-        <label className="block text-sm font-medium text-gray-600 mb-2">
+        <label className="block text-[15px] font-medium text-gray-600 mb-2">
           ¿Qué te interesa?
         </label>
         <div className="grid grid-cols-2 gap-3">

@@ -29,7 +29,7 @@ function SelectField({
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-600 mb-1.5">{label}</label>
+      <label className="block text-[15px] font-medium text-gray-600 mb-1.5">{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -50,7 +50,7 @@ export default function StepCharacteristics({ formData, onChange }: Props) {
     <div className="grid grid-cols-2 gap-4">
       {/* Área construida */}
       <div>
-        <label className="block text-sm font-medium text-gray-600 mb-1.5">
+        <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
           Área construida (m²)
         </label>
         <input
@@ -108,7 +108,7 @@ export default function StepCharacteristics({ formData, onChange }: Props) {
 
       {/* Antigüedad */}
       <div>
-        <label className="block text-sm font-medium text-gray-600 mb-1.5">
+        <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
           Antigüedad (años)
         </label>
         <input

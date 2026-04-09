@@ -16,7 +16,7 @@ interface Props {
 export default function PropertyTypeSelector({ value, onChange }: Props) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-600 mb-2">Tipo de inmueble</label>
+      <label className="block text-[15px] font-medium text-gray-600 mb-2">Tipo de inmueble</label>
       <div className="grid grid-cols-2 gap-2">
         {TYPES.map(t => (
           <button

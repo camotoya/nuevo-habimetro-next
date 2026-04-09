@@ -77,7 +77,7 @@ export default function StepCatastral({ catastral, propertyType, onSelectUnit }:
       {/* Torre selector if multiple */}
       {catastral.torres.length > 1 && (
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1.5">Torre</label>
+          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">Torre</label>
           <select
             value={selectedTorre}
             onChange={(e) => setSelectedTorre(Number(e.target.value))}
@@ -95,7 +95,7 @@ export default function StepCatastral({ catastral, propertyType, onSelectUnit }:
       {/* Unit selector */}
       {apartments.length > 0 && (
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1.5">
+          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
             Selecciona tu unidad
           </label>
           <select

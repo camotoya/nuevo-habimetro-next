@@ -45,7 +45,7 @@ export default function StepDetails({ formData, onChange }: Props) {
           const active = data[field] === 1;
           return (
             <div key={field} className="space-y-1.5">
-              <label className="block text-sm font-medium text-gray-600">{label}</label>
+              <label className="block text-[15px] font-medium text-gray-600">{label}</label>
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -80,7 +80,7 @@ export default function StepDetails({ formData, onChange }: Props) {
       {/* Floor and View */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1.5">Piso</label>
+          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">Piso</label>
           <input
             type="number"
             min={0}
@@ -92,7 +92,7 @@ export default function StepDetails({ formData, onChange }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1.5">Vista</label>
+          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">Vista</label>
           <select
             value={formData.view}
             onChange={(e) => onChange('view', e.target.value)}

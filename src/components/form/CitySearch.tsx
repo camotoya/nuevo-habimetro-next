@@ -30,7 +30,7 @@ export default function CitySearch({ cities, value, onChange }: Props) {
 
   return (
     <div ref={ref}>
-      <label className="block text-sm font-medium text-gray-600 mb-1">Ciudad</label>
+      <label className="block text-[15px] font-medium text-gray-600 mb-1">Ciudad</label>
       <div className="relative">
         <input
           type="text"
