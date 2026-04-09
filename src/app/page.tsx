@@ -4,14 +4,12 @@ import dynamic from 'next/dynamic';
 import { useFormState } from '@/hooks/useFormState';
 import * as api from '@/lib/api';
 
-// Layout
 import Header from '@/components/layout/Header';
 import Hero from '@/components/layout/Hero';
 import ProgressBar from '@/components/layout/ProgressBar';
 import StepsNav from '@/components/layout/StepsNav';
 import Footer from '@/components/layout/Footer';
 
-// Form steps
 import PropertyTypeSelector from '@/components/form/PropertyTypeSelector';
 import CitySearch from '@/components/form/CitySearch';
 import StructuredAddress from '@/components/form/StructuredAddress';
@@ -20,13 +18,11 @@ import StepCharacteristics from '@/components/form/StepCharacteristics';
 import StepDetails from '@/components/form/StepDetails';
 import StepContact from '@/components/form/StepContact';
 
-// Panel cards
 const MapCard = dynamic(() => import('@/components/panel/MapCard'), { ssr: false });
 import CatastralCard from '@/components/panel/CatastralCard';
 import ZoneCard from '@/components/panel/ZoneCard';
 import POIsCard from '@/components/panel/POIsCard';
 
-// Results
 import ResultsHero from '@/components/results/ResultsHero';
 import EligibilityCards from '@/components/results/EligibilityCards';
 import PropertyTags from '@/components/results/PropertyTags';
@@ -36,12 +32,11 @@ import ResultsCTA from '@/components/results/ResultsCTA';
 
 const STEPS = [
   { label: 'Ubicación' },
-  { label: 'Catastral' },
   { label: 'Características' },
   { label: 'Detalles' },
   { label: 'Tus datos' },
 ];
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 4;
 
 export default function Home() {
   const {
@@ -55,12 +50,14 @@ export default function Home() {
     api.getCities().then(cities => updateApi({ cities })).catch(console.error);
   }, [updateApi]);
 
+  // Step 1 validation
   const numRegex = /^\d{1,3}([a-zA-Z\s]*)?$/;
   const step1Valid = !!(formData.city && formData.tipoVia
     && formData.num1 && numRegex.test(formData.num1)
     && formData.num2 && numRegex.test(formData.num2)
     && formData.num3 && numRegex.test(formData.num3));
 
+  // Step 1 complete → georef + catastral + POIs + DANE + median zone
   const onStep1Complete = useCallback(async () => {
     if (!formData.address || !formData.city) return;
     try {
@@ -79,7 +76,8 @@ export default function Home() {
     } catch (e) { console.error('Georef failed:', e); }
   }, [formData.address, formData.city, formData.propertyType, updateApi]);
 
-  const onStep3Complete = useCallback(async () => {
+  // Step 2 complete → check discarded
+  const onStep2Complete = useCallback(async () => {
     const geo = apiState.georef;
     if (!geo || !formData.area) return;
     try {
@@ -93,6 +91,7 @@ export default function Home() {
     } catch (e) { console.error('Discarded failed:', e); }
   }, [apiState.georef, formData, updateApi]);
 
+  // Submit
   const onSubmit = useCallback(async () => {
     setLoading(true);
     setLoadingMsg('Registrando tu inmueble...');
@@ -138,23 +137,26 @@ export default function Home() {
     }
   }, [formData, apiState, updateApi, setLoading, setLoadingMsg, setShowResults]);
 
+  // Navigation
   const goNext = async () => {
     if (currentStep === 1) await onStep1Complete();
-    if (currentStep === 3) await onStep3Complete();
+    if (currentStep === 2) await onStep2Complete();
     if (currentStep < TOTAL_STEPS) setCurrentStep(currentStep + 1);
   };
   const goBack = () => { if (currentStep > 1) setCurrentStep(currentStep - 1); };
 
+  // ── Loading ──
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <div className="w-14 h-14 border-4 border-gray-200 border-t-purple-600 rounded-full animate-spin mx-auto mb-5" />
-        <h2 className="font-[family-name:var(--font-heading)] font-bold text-2xl mb-2">Calculando tu avalúo</h2>
+        <h2 className="font-[family-name:var(--font-heading)] font-bold text-2xl mb-2">Analizando tu inmueble</h2>
         <p className="text-gray-500">{loadingMsg}</p>
       </div>
     </div>
   );
 
+  // ── Results ──
   if (showResults && apiState.habimetro) {
     const hm = apiState.habimetro;
     const vH = api.normalizeHistoric(hm.historico_precio_venta || hm.historico_precios);
@@ -186,6 +188,7 @@ export default function Home() {
     );
   }
 
+  // ── Form ──
   return (
     <>
       <Header />
@@ -195,56 +198,88 @@ export default function Home() {
           <div className="bg-white rounded-2xl p-5 sm:p-7 shadow-sm">
             <ProgressBar step={currentStep} totalSteps={TOTAL_STEPS} />
             <StepsNav currentStep={currentStep} totalSteps={TOTAL_STEPS} steps={STEPS} />
+
+            {/* Step 1: Ubicación (tipo + ciudad + dirección) */}
             {currentStep === 1 && (
-              <div className="space-y-5 animate-in">
-                <div><h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Cuéntanos sobre tu inmueble</h2><p className="text-sm text-gray-500">Con estos datos identificamos tu propiedad y su entorno.</p></div>
+              <div className="space-y-5">
+                <div>
+                  <h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Cuéntanos sobre tu inmueble</h2>
+                  <p className="text-sm text-gray-500">Con estos datos identificamos tu propiedad y su entorno.</p>
+                </div>
                 <PropertyTypeSelector value={formData.propertyType} onChange={v => updateForm({ propertyType: v })} />
                 <CitySearch cities={apiState.cities} value={formData.city} onChange={c => updateForm({ city: c.name, cityName: c.label, cityId: c.id })} />
                 <StructuredAddress tipoVia={formData.tipoVia} num1={formData.num1} num2={formData.num2} num3={formData.num3} address={formData.address} onChange={(f, v) => updateForm({ [f]: v })} />
                 <button onClick={goNext} disabled={!step1Valid} className="w-full py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-200 disabled:shadow-none">Continuar</button>
               </div>
             )}
+
+            {/* Step 2: Características (catastral unit + propiedades) */}
             {currentStep === 2 && (
-              <div className="space-y-5 animate-in">
-                <div><h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Datos catastrales</h2><p className="text-sm text-gray-500">Si encontramos datos, te ahorramos tiempo.</p></div>
-                <StepCatastral catastral={apiState.catastral} propertyType={formData.propertyType} onSelectUnit={(u, a) => updateForm({ unit: u, ...(a ? { area: a } : {}) })} />
-                <div className="flex gap-3"><button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600">Atrás</button><button onClick={goNext} className="flex-1 py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg shadow-purple-200">Continuar</button></div>
-              </div>
-            )}
-            {currentStep === 3 && (
-              <div className="space-y-5 animate-in">
-                <div><h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Cuéntanos más de tu inmueble</h2><p className="text-sm text-gray-500">Con estas características estimamos un rango de valor.</p></div>
+              <div className="space-y-5">
+                <div>
+                  <h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Características de tu inmueble</h2>
+                  <p className="text-sm text-gray-500">Con estas características estimamos un rango de valor.</p>
+                </div>
+                {/* Catastral unit selector (if available for apartments) */}
+                {apiState.catastral && (formData.propertyType === 1 || formData.propertyType === 3) && (
+                  <StepCatastral
+                    catastral={apiState.catastral}
+                    propertyType={formData.propertyType}
+                    onSelectUnit={(u, a) => updateForm({ unit: u, ...(a ? { area: a } : {}) })}
+                  />
+                )}
                 <StepCharacteristics formData={formData} onChange={(f, v) => updateForm({ [f]: v })} />
-                <div className="flex gap-3"><button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600">Atrás</button><button onClick={goNext} className="flex-1 py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg shadow-purple-200">Continuar</button></div>
+                <div className="flex gap-3">
+                  <button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600 font-medium">Atrás</button>
+                  <button onClick={goNext} className="flex-1 py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg shadow-purple-200">Continuar</button>
+                </div>
               </div>
             )}
-            {currentStep === 4 && (
-              <div className="space-y-5 animate-in">
-                <div><h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Detalles adicionales</h2><p className="text-sm text-gray-500">Estos detalles afinan la precisión del avalúo.</p></div>
+
+            {/* Step 3: Detalles */}
+            {currentStep === 3 && (
+              <div className="space-y-5">
+                <div>
+                  <h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Detalles adicionales</h2>
+                  <p className="text-sm text-gray-500">Estos detalles afinan la precisión del resultado.</p>
+                </div>
                 <StepDetails formData={formData} onChange={(f, v) => updateForm({ [f]: v })} />
-                <div className="flex gap-3"><button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600">Atrás</button><button onClick={goNext} className="flex-1 py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg shadow-purple-200">Continuar</button></div>
+                <div className="flex gap-3">
+                  <button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600 font-medium">Atrás</button>
+                  <button onClick={goNext} className="flex-1 py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg shadow-purple-200">Continuar</button>
+                </div>
               </div>
             )}
-            {currentStep === 5 && (
-              <div className="space-y-5 animate-in">
-                <div><h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">¿A dónde enviamos tu avalúo?</h2><p className="text-sm text-gray-500">Déjanos tus datos y en segundos tendrás tu reporte.</p></div>
+
+            {/* Step 4: Datos personales */}
+            {currentStep === 4 && (
+              <div className="space-y-5">
+                <div>
+                  <h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">¿A dónde enviamos tu resultado?</h2>
+                  <p className="text-sm text-gray-500">Déjanos tus datos y en segundos tendrás tu reporte.</p>
+                </div>
                 <StepContact formData={formData} onChange={(f, v) => updateForm({ [f]: v })} />
-                <div className="flex gap-3"><button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600">Atrás</button><button onClick={onSubmit} className="flex-1 py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg shadow-purple-200">Ver mi avalúo</button></div>
+                <div className="flex gap-3">
+                  <button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600 font-medium">Atrás</button>
+                  <button onClick={onSubmit} className="flex-1 py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg shadow-purple-200">Ver mi resultado</button>
+                </div>
               </div>
             )}
           </div>
+
+          {/* Panel lateral */}
           <div className="sticky top-20 space-y-4 hidden md:block">
             {!apiState.georef && (
               <div className="bg-white rounded-2xl p-8 shadow-sm text-center text-gray-400">
                 <div className="text-5xl mb-4">🏡</div>
-                <h3 className="font-[family-name:var(--font-heading)] font-bold text-lg text-gray-500 mb-2">Tu avalúo en tiempo real</h3>
+                <h3 className="font-[family-name:var(--font-heading)] font-bold text-lg text-gray-500 mb-2">Tu inmueble en tiempo real</h3>
                 <p className="text-sm">A medida que completes los pasos, aquí verás información valiosa.</p>
               </div>
             )}
             {apiState.georef && <MapCard georef={apiState.georef} pois={apiState.pois} address={formData.address} />}
-            {currentStep >= 2 && apiState.catastral && <CatastralCard catastral={apiState.catastral} project={apiState.georef?.project || ''} />}
-            {currentStep >= 3 && <ZoneCard medianZone={apiState.medianZone} />}
-            {currentStep >= 4 && apiState.pois && <POIsCard pois={apiState.pois} />}
+            {apiState.catastral && <CatastralCard catastral={apiState.catastral} project={apiState.georef?.project || ''} />}
+            {currentStep >= 2 && <ZoneCard medianZone={apiState.medianZone} />}
+            {currentStep >= 3 && apiState.pois && <POIsCard pois={apiState.pois} />}
           </div>
         </div>
       </main>
