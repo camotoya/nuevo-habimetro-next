@@ -17,6 +17,69 @@ interface Props {
   onAddressChange: (field: string, value: string) => void;
 }
 
+function ViaSearch({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState(value);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
+
+  const normalize = (s: string) => s.toLowerCase();
+  const filtered = query
+    ? TIPOS_VIA.filter(v => normalize(v).includes(normalize(query)))
+    : TIPOS_VIA;
+
+  return (
+    <div className="relative shrink-0" style={{ width: '30%' }} ref={ref}>
+      <input
+        type="text"
+        className="w-full px-2 py-3 border-2 border-gray-200 rounded-xl text-[16px] outline-none transition-colors focus:border-purple-600"
+        placeholder="Tipo de vía"
+        value={query}
+        autoComplete="off"
+        onFocus={() => setOpen(true)}
+        onChange={e => {
+          setQuery(e.target.value);
+          setOpen(true);
+          if (value) onChange('');
+        }}
+      />
+      {open && (
+        <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-20 max-h-[250px] overflow-y-auto">
+          {filtered.length === 0 ? (
+            <div className="px-3 py-3 text-[14px] text-gray-400">Sin resultados</div>
+          ) : (
+            filtered.map(v => (
+              <button
+                key={v}
+                type="button"
+                className={cn(
+                  'block w-full text-left px-3 py-2.5 text-[15px] hover:bg-purple-50 transition-colors',
+                  v === value && 'bg-purple-50 text-purple-700 font-semibold'
+                )}
+                onMouseDown={e => {
+                  e.preventDefault();
+                  setQuery(v);
+                  setOpen(false);
+                  onChange(v);
+                }}
+              >
+                {v}
+              </button>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function CityAndAddress({
   cities, cityValue, onCityChange,
   tipoVia, num1, num2, num3, address, onAddressChange,
@@ -89,18 +152,8 @@ export default function CityAndAddress({
             </div>
           )}
         </div>
-        {/* Tipo de vía 30% */}
-        <select
-          value={tipoVia}
-          onChange={e => onAddressChange('tipoVia', e.target.value)}
-          style={{ width: '30%' }}
-          className="shrink-0 px-1 py-3 border-2 border-gray-200 rounded-xl text-[16px] outline-none bg-white transition-colors focus:border-purple-600 appearance-none"
-        >
-          <option value="" disabled>Vía</option>
-          {TIPOS_VIA.map(v => (
-            <option key={v} value={v}>{v}</option>
-          ))}
-        </select>
+        {/* Tipo de vía 30% — searchable like city */}
+        <ViaSearch value={tipoVia} onChange={v => onAddressChange('tipoVia', v)} />
         {/* Num1 16% */}
         <input
           type="text"
