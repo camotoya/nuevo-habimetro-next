@@ -16,7 +16,7 @@ interface Props {
 export default function PropertyTypeSelector({ value, onChange }: Props) {
   return (
     <div>
-      <label className="block text-[15px] font-medium text-gray-600 mb-2">Tipo de inmueble</label>
+      <label className="block text-[16px] font-medium text-gray-600 mb-2">Tipo de inmueble</label>
       <div className="grid grid-cols-2 gap-2">
         {TYPES.map(t => (
           <button
@@ -24,7 +24,7 @@ export default function PropertyTypeSelector({ value, onChange }: Props) {
             type="button"
             onClick={() => onChange(t.value)}
             className={cn(
-              'flex items-center gap-3 px-4 py-2.5 rounded-xl border-2 transition-all text-[14px] font-medium',
+              'flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all text-[16px] font-medium',
               value === t.value
                 ? 'border-purple-600 bg-purple-50 text-purple-700'
                 : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'

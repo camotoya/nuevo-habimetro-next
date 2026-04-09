@@ -11,8 +11,8 @@ export default function ProgressBar({ step, totalSteps }: Props) {
   return (
     <div className="py-3">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-[14px] font-medium text-gray-500">Perfil del inmueble</span>
-        <span className="text-[14px] font-bold text-teal-600">{pct}%</span>
+        <span className="text-[16px] font-medium text-gray-500">Perfil del inmueble</span>
+        <span className="text-[16px] font-bold text-teal-600">{pct}%</span>
       </div>
       <div className="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
         <div

@@ -30,11 +30,11 @@ export default function CitySearch({ cities, value, onChange }: Props) {
 
   return (
     <div ref={ref}>
-      <label className="block text-[15px] font-medium text-gray-600 mb-1">Ciudad</label>
+      <label className="block text-[16px] font-medium text-gray-600 mb-1">Ciudad</label>
       <div className="relative">
         <input
           type="text"
-          className="w-full px-3.5 py-3 border-2 border-gray-200 rounded-xl text-base outline-none transition-colors focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+          className="w-full px-3.5 py-3 border-2 border-gray-200 rounded-xl text-[16px] outline-none transition-colors focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
           placeholder="Escribe o selecciona tu ciudad"
           value={query}
           autoComplete="off"

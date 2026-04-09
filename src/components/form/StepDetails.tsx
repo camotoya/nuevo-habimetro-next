@@ -32,7 +32,7 @@ const VIEW_OPTIONS = [
 ];
 
 const inputBase =
-  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-base bg-white focus:border-purple-600 focus:outline-none transition-colors';
+  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-[16px] bg-white focus:border-purple-600 focus:outline-none transition-colors';
 
 export default function StepDetails({ formData, onChange }: Props) {
   const data = formData as Record<string, number | string>;
@@ -45,13 +45,13 @@ export default function StepDetails({ formData, onChange }: Props) {
           const active = data[field] === 1;
           return (
             <div key={field} className="space-y-1.5">
-              <label className="block text-[15px] font-medium text-gray-600">{label}</label>
+              <label className="block text-[16px] font-medium text-gray-600">{label}</label>
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={() => onChange(field, 1)}
                   className={cn(
-                    'flex-1 rounded-xl border-2 py-2.5 text-base font-medium transition-all',
+                    'flex-1 rounded-xl border-2 py-2.5 text-[16px] font-medium transition-all',
                     active
                       ? 'border-purple-600 bg-purple-50 text-purple-700'
                       : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'
@@ -63,7 +63,7 @@ export default function StepDetails({ formData, onChange }: Props) {
                   type="button"
                   onClick={() => onChange(field, 0)}
                   className={cn(
-                    'flex-1 rounded-xl border-2 py-2.5 text-base font-medium transition-all',
+                    'flex-1 rounded-xl border-2 py-2.5 text-[16px] font-medium transition-all',
                     !active
                       ? 'border-purple-600 bg-purple-50 text-purple-700'
                       : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'
@@ -80,7 +80,7 @@ export default function StepDetails({ formData, onChange }: Props) {
       {/* Floor and View */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">Piso</label>
+          <label className="block text-[16px] font-medium text-gray-600 mb-1.5">Piso</label>
           <input
             type="number"
             min={0}
@@ -92,7 +92,7 @@ export default function StepDetails({ formData, onChange }: Props) {
         </div>
 
         <div>
-          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">Vista</label>
+          <label className="block text-[16px] font-medium text-gray-600 mb-1.5">Vista</label>
           <select
             value={formData.view}
             onChange={(e) => onChange('view', e.target.value)}

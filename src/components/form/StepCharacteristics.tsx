@@ -14,7 +14,7 @@ interface Props {
 }
 
 const inputBase =
-  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-base bg-white focus:border-purple-600 focus:outline-none transition-colors';
+  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-[16px] bg-white focus:border-purple-600 focus:outline-none transition-colors';
 
 function SelectField({
   label,
@@ -29,7 +29,7 @@ function SelectField({
 }) {
   return (
     <div>
-      <label className="block text-[15px] font-medium text-gray-600 mb-1.5">{label}</label>
+      <label className="block text-[16px] font-medium text-gray-600 mb-1.5">{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -50,7 +50,7 @@ export default function StepCharacteristics({ formData, onChange }: Props) {
     <div className="grid grid-cols-2 gap-4">
       {/* Área construida */}
       <div>
-        <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
+        <label className="block text-[16px] font-medium text-gray-600 mb-1.5">
           Área construida (m²)
         </label>
         <input
@@ -108,7 +108,7 @@ export default function StepCharacteristics({ formData, onChange }: Props) {
 
       {/* Antigüedad */}
       <div>
-        <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
+        <label className="block text-[16px] font-medium text-gray-600 mb-1.5">
           Antigüedad (años)
         </label>
         <input

@@ -8,18 +8,19 @@ interface Props {
   num2: string;
   num3: string;
   address: string;
+  city: string;
   onChange: (field: string, value: string) => void;
 }
 
 export default function StructuredAddress({ tipoVia, num1, num2, num3, address, onChange }: Props) {
   return (
     <div>
-      <label className="block text-[15px] font-medium text-gray-600 mb-1">Dirección</label>
+      <label className="block text-[16px] font-medium text-gray-600 mb-1">Dirección</label>
       <div className="flex items-center gap-1.5">
         <select
           value={tipoVia}
           onChange={e => onChange('tipoVia', e.target.value)}
-          className="w-[120px] shrink-0 px-2 py-3 border-2 border-gray-200 rounded-xl text-base outline-none bg-white transition-colors focus:border-purple-600 appearance-none"
+          className="w-[110px] shrink-0 px-2 py-3 border-2 border-gray-200 rounded-xl text-[16px] outline-none bg-white transition-colors focus:border-purple-600 appearance-none"
         >
           <option value="" disabled>Vía</option>
           {TIPOS_VIA.map(v => (
@@ -32,7 +33,7 @@ export default function StructuredAddress({ tipoVia, num1, num2, num3, address, 
           onChange={e => onChange('num1', e.target.value)}
           placeholder="127 c bis"
           maxLength={15}
-          className="flex-1 min-w-0 px-2 py-3 border-2 border-gray-200 rounded-xl text-base text-center outline-none transition-colors focus:border-purple-600"
+          className="w-[110px] shrink-0 px-2 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
         />
         <span className="text-lg font-bold text-gray-400 shrink-0">#</span>
         <input
@@ -40,8 +41,8 @@ export default function StructuredAddress({ tipoVia, num1, num2, num3, address, 
           value={num2}
           onChange={e => onChange('num2', e.target.value)}
           placeholder="78"
-          maxLength={15}
-          className="w-[70px] shrink-0 px-2 py-3 border-2 border-gray-200 rounded-xl text-base text-center outline-none transition-colors focus:border-purple-600"
+          maxLength={10}
+          className="w-[65px] shrink-0 px-2 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
         />
         <span className="text-lg font-bold text-gray-400 shrink-0">-</span>
         <input
@@ -49,8 +50,8 @@ export default function StructuredAddress({ tipoVia, num1, num2, num3, address, 
           value={num3}
           onChange={e => onChange('num3', e.target.value)}
           placeholder="97"
-          maxLength={10}
-          className="w-[60px] shrink-0 px-2 py-3 border-2 border-gray-200 rounded-xl text-base text-center outline-none transition-colors focus:border-purple-600"
+          maxLength={5}
+          className="w-[50px] shrink-0 px-2 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
         />
       </div>
       {address && (

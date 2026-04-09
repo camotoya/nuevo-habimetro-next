@@ -11,8 +11,7 @@ import StepsNav from '@/components/layout/StepsNav';
 import Footer from '@/components/layout/Footer';
 
 import PropertyTypeSelector from '@/components/form/PropertyTypeSelector';
-import CitySearch from '@/components/form/CitySearch';
-import StructuredAddress from '@/components/form/StructuredAddress';
+import CityAndAddress from '@/components/form/CityAndAddress';
 import StepCatastral from '@/components/form/StepCatastral';
 import StepCharacteristics from '@/components/form/StepCharacteristics';
 import StepDetails from '@/components/form/StepDetails';
@@ -221,8 +220,17 @@ export default function Home() {
             <div className="space-y-5">
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px]">Cuéntanos sobre tu inmueble</h2>
               <PropertyTypeSelector value={formData.propertyType} onChange={v => updateForm({ propertyType: v })} />
-              <CitySearch cities={apiState.cities} value={formData.city} onChange={c => updateForm({ city: c.name, cityName: c.label, cityId: c.id })} />
-              <StructuredAddress tipoVia={formData.tipoVia} num1={formData.num1} num2={formData.num2} num3={formData.num3} address={formData.address} onChange={(f, v) => updateForm({ [f]: v })} />
+              <CityAndAddress
+                cities={apiState.cities}
+                cityValue={formData.city}
+                onCityChange={c => updateForm({ city: c.name, cityName: c.label, cityId: c.id })}
+                tipoVia={formData.tipoVia}
+                num1={formData.num1}
+                num2={formData.num2}
+                num3={formData.num3}
+                address={formData.address}
+                onAddressChange={(f, v) => updateForm({ [f]: v })}
+              />
               <button onClick={goNext} disabled={!step1Valid} className="w-full py-3.5 rounded-full font-semibold text-white bg-purple-600 hover:bg-purple-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-200 disabled:shadow-none">Continuar</button>
             </div>
           )}

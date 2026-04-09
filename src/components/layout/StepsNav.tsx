@@ -28,7 +28,7 @@ export default function StepsNav({ currentStep, totalSteps, steps }: Props) {
                   {isDone ? '✓' : stepNum}
                 </span>
                 <span className={cn(
-                  'text-[13px] font-medium',
+                  'text-[14px] font-medium',
                   isActive && 'text-purple-700',
                   isDone && 'text-teal-600',
                   !isActive && !isDone && 'text-gray-400'

@@ -19,14 +19,14 @@ const INTENTS = [
 ];
 
 const inputBase =
-  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-base bg-white focus:border-purple-600 focus:outline-none transition-colors';
+  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-[16px] bg-white focus:border-purple-600 focus:outline-none transition-colors';
 
 export default function StepContact({ formData, onChange }: Props) {
   return (
     <div className="space-y-4">
       {/* Nombre completo */}
       <div>
-        <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
+        <label className="block text-[16px] font-medium text-gray-600 mb-1.5">
           Nombre completo
         </label>
         <input
@@ -41,7 +41,7 @@ export default function StepContact({ formData, onChange }: Props) {
       {/* Email + Phone in 2-col grid */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">
+          <label className="block text-[16px] font-medium text-gray-600 mb-1.5">
             Correo electrónico
           </label>
           <input
@@ -53,7 +53,7 @@ export default function StepContact({ formData, onChange }: Props) {
           />
         </div>
         <div>
-          <label className="block text-[15px] font-medium text-gray-600 mb-1.5">Teléfono</label>
+          <label className="block text-[16px] font-medium text-gray-600 mb-1.5">Teléfono</label>
           <input
             type="tel"
             placeholder="300 123 4567"
@@ -66,7 +66,7 @@ export default function StepContact({ formData, onChange }: Props) {
 
       {/* Intent buttons in 2x2 grid */}
       <div>
-        <label className="block text-[15px] font-medium text-gray-600 mb-2">
+        <label className="block text-[16px] font-medium text-gray-600 mb-2">
           ¿Qué te interesa?
         </label>
         <div className="grid grid-cols-2 gap-3">
@@ -76,7 +76,7 @@ export default function StepContact({ formData, onChange }: Props) {
               type="button"
               onClick={() => onChange('intent', intent.value)}
               className={cn(
-                'flex items-center gap-2.5 rounded-xl border-2 px-3.5 py-3 text-base font-medium transition-all',
+                'flex items-center gap-2.5 rounded-xl border-2 px-3.5 py-3 text-[16px] font-medium transition-all',
                 formData.intent === intent.value
                   ? 'border-purple-600 bg-purple-50 text-purple-700'
                   : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'
