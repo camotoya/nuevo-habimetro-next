@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useFormState } from '@/hooks/useFormState';
 import * as api from '@/lib/api';
@@ -41,6 +41,8 @@ export default function Home() {
     loading, setLoading, loadingMsg, setLoadingMsg,
     showResults, setShowResults, reset,
   } = useFormState();
+
+  const [activeTab, setActiveTab] = useState('vender');
 
   // Track last fetched address to detect changes
   const lastFetchedAddress = useRef('');
@@ -208,8 +210,25 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Hero />
+      <Hero activeTab={activeTab} onTabChange={setActiveTab} />
       <main className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+        {activeTab !== 'vender' && (
+          <div className="bg-white rounded-2xl p-12 shadow-sm text-center">
+            <div className="text-5xl mb-4">
+              {activeTab === 'comprar' && '🏠'}
+              {activeTab === 'broker' && '🤝'}
+              {activeTab === 'cuanto' && '💰'}
+            </div>
+            <h2 className="font-[family-name:var(--font-heading)] font-bold text-[24px] mb-2">
+              {activeTab === 'comprar' && 'Comprar con Habi'}
+              {activeTab === 'broker' && 'Portal de Brokers'}
+              {activeTab === 'cuanto' && '¿Cuánto cuesta mi vivienda?'}
+            </h2>
+            <p className="text-[16px] text-gray-500">Próximamente</p>
+          </div>
+        )}
+
+        {activeTab === 'vender' && <>
         {/* Form card */}
         <div className="bg-white rounded-2xl p-5 sm:p-7 shadow-sm">
           <ProgressBar step={currentStep} totalSteps={TOTAL_STEPS} />
@@ -287,6 +306,7 @@ export default function Home() {
           medianZone={apiState.medianZone}
           address={formData.address}
         />
+        </>}
       </main>
       <Footer />
     </>
