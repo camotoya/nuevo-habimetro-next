@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { GeorefResult, POICategory } from '@/types';
 
 interface Props {
@@ -11,11 +11,23 @@ interface Props {
 export default function MapCard({ georef, pois, address }: Props) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<unknown>(null);
+  const [cssLoaded, setCssLoaded] = useState(false);
 
+  // Load Leaflet CSS once
   useEffect(() => {
-    if (!georef?.latitude || !georef?.longitude || !mapRef.current) return;
+    if (document.querySelector('link[href*="leaflet"]')) { setCssLoaded(true); return; }
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    link.onload = () => setCssLoaded(true);
+    document.head.appendChild(link);
+  }, []);
 
-    // Cleanup previous map
+  // Render map
+  useEffect(() => {
+    if (!cssLoaded || !georef?.latitude || !georef?.longitude || !mapRef.current) return;
+
+    // Cleanup previous
     if (mapInstance.current) {
       (mapInstance.current as { remove: () => void }).remove();
       mapInstance.current = null;
@@ -24,20 +36,11 @@ export default function MapCard({ georef, pois, address }: Props) {
     import('leaflet').then(L => {
       if (!mapRef.current) return;
 
-      // Fix Leaflet default icon paths
-      delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-      });
-
       const map = L.map(mapRef.current, { zoomControl: false, attributionControl: false })
         .setView([georef.latitude!, georef.longitude!], 16);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-      // Property pin
       L.marker([georef.latitude!, georef.longitude!], {
         icon: L.divIcon({
           html: '<div style="background:#7C01FF;width:14px;height:14px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3)"></div>',
@@ -46,7 +49,6 @@ export default function MapCard({ georef, pois, address }: Props) {
         }),
       }).addTo(map);
 
-      // POI markers
       const colors: Record<string, string> = {
         'centros-comerciales': '#FF8C00', parques: '#00C29C', clinicas: '#E53935',
         transporte: '#1976D2', policia: '#6E6B75',
@@ -65,9 +67,7 @@ export default function MapCard({ georef, pois, address }: Props) {
         });
       }
 
-      // Force map to recalculate size after render
-      setTimeout(() => map.invalidateSize(), 100);
-
+      setTimeout(() => map.invalidateSize(), 200);
       mapInstance.current = map;
     });
 
@@ -77,7 +77,7 @@ export default function MapCard({ georef, pois, address }: Props) {
         mapInstance.current = null;
       }
     };
-  }, [georef?.latitude, georef?.longitude, pois]);
+  }, [cssLoaded, georef?.latitude, georef?.longitude, pois]);
 
   const project = georef?.project || '';
   const title = project ? `${project} — ${address}` : address;

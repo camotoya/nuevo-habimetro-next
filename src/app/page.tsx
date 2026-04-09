@@ -219,10 +219,7 @@ export default function Home() {
           {/* Step 1: Ubicación */}
           {currentStep === 1 && (
             <div className="space-y-5">
-              <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] mb-1">Cuéntanos sobre tu inmueble</h2>
-                <p className="text-[15px] text-gray-500">Con estos datos identificamos tu propiedad y su entorno.</p>
-              </div>
+              <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px]">Cuéntanos sobre tu inmueble</h2>
               <PropertyTypeSelector value={formData.propertyType} onChange={v => updateForm({ propertyType: v })} />
               <CitySearch cities={apiState.cities} value={formData.city} onChange={c => updateForm({ city: c.name, cityName: c.label, cityId: c.id })} />
               <StructuredAddress tipoVia={formData.tipoVia} num1={formData.num1} num2={formData.num2} num3={formData.num3} address={formData.address} onChange={(f, v) => updateForm({ [f]: v })} />
@@ -233,10 +230,7 @@ export default function Home() {
           {/* Step 2: Características */}
           {currentStep === 2 && (
             <div className="space-y-5">
-              <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] mb-1">Características de tu inmueble</h2>
-                <p className="text-[15px] text-gray-500">Con estas características estimamos un rango de valor.</p>
-              </div>
+              <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px]">Características de tu inmueble</h2>
               {apiState.catastral && (formData.propertyType === 1 || formData.propertyType === 3) && (
                 <StepCatastral
                   catastral={apiState.catastral}
@@ -255,10 +249,7 @@ export default function Home() {
           {/* Step 3: Detalles */}
           {currentStep === 3 && (
             <div className="space-y-5">
-              <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] mb-1">Detalles adicionales</h2>
-                <p className="text-[15px] text-gray-500">Estos detalles afinan la precisión del resultado.</p>
-              </div>
+              <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px]">Detalles adicionales</h2>
               <StepDetails formData={formData} onChange={(f, v) => updateForm({ [f]: v })} />
               <div className="flex gap-3">
                 <button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600 font-medium">Atrás</button>
@@ -270,10 +261,7 @@ export default function Home() {
           {/* Step 4: Datos personales */}
           {currentStep === 4 && (
             <div className="space-y-5">
-              <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] mb-1">¿A dónde enviamos tu resultado?</h2>
-                <p className="text-[15px] text-gray-500">Déjanos tus datos y en segundos tendrás tu reporte.</p>
-              </div>
+              <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px]">¿A dónde enviamos tu resultado?</h2>
               <StepContact formData={formData} onChange={(f, v) => updateForm({ [f]: v })} />
               <div className="flex gap-3">
                 <button onClick={goBack} className="px-4 py-3 text-gray-500 hover:text-purple-600 font-medium">Atrás</button>

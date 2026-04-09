@@ -5,16 +5,8 @@ interface Props {
   totalSteps: number;
 }
 
-const HINTS: Record<number, string> = {
-  1: 'Comencemos con la ubicación de tu inmueble.',
-  2: 'Las características mejoran la precisión.',
-  3: 'Casi listo, solo faltan unos detalles más.',
-  4: 'Último paso para ver tu resultado.',
-};
-
 export default function ProgressBar({ step, totalSteps }: Props) {
   const pct = Math.round((step / totalSteps) * 100);
-  const hint = HINTS[step] ?? '';
 
   return (
     <div className="py-3">
@@ -28,7 +20,6 @@ export default function ProgressBar({ step, totalSteps }: Props) {
           style={{ width: `${pct}%` }}
         />
       </div>
-      {hint && <p className="text-[13px] text-gray-400 mt-1.5">{hint}</p>}
     </div>
   );
 }
