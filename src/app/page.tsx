@@ -243,6 +243,7 @@ export default function Home() {
                 <StepCatastral
                   catastral={apiState.catastral}
                   propertyType={formData.propertyType}
+                  project={apiState.georef?.project || ''}
                   onSelectUnit={(u, a) => updateForm({ unit: u, ...(a ? { area: a } : {}) })}
                 />
               )}
@@ -283,10 +284,8 @@ export default function Home() {
         <ResultCards
           georef={apiState.georef}
           pois={apiState.pois}
-          catastral={apiState.catastral}
           medianZone={apiState.medianZone}
           address={formData.address}
-          project={apiState.georef?.project || ''}
         />
       </main>
       <Footer />
