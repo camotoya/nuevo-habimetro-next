@@ -25,16 +25,17 @@ export default function PropertyTypeSelector({ value, onChange }: Props) {
             onClick={() => onChange(t.value)}
             className={cn(
               'flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all text-[16px] font-medium',
+              'sm:flex-row flex-col',
               value === t.value
                 ? 'border-purple-600 bg-purple-50 text-purple-700'
                 : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'
             )}
           >
-            <span className="flex-1 text-left">{t.label}</span>
+            <span className="flex-1 text-left sm:text-left text-center w-full sm:w-auto">{t.label}</span>
             <img
               src={asset(value === t.value ? t.imgSel : t.img)}
               alt={t.label}
-              className="h-[42px] w-auto flex-shrink-0"
+              className="h-[42px] w-auto flex-shrink-0 order-last sm:order-none"
             />
           </button>
         ))}

@@ -36,7 +36,7 @@ function ViaSearch({ value, onChange }: { value: string; onChange: (v: string) =
     : TIPOS_VIA;
 
   return (
-    <div className="relative shrink-0" style={{ width: '30%' }} ref={ref}>
+    <div className="relative" style={{ flex: 3, minWidth: 0 }} ref={ref}>
       <input
         type="text"
         className="w-full px-2 py-3 border-2 border-gray-200 rounded-xl text-[16px] outline-none transition-colors focus:border-purple-600"
@@ -105,8 +105,8 @@ export default function CityAndAddress({
     <div>
       <label className="block text-[16px] font-medium text-gray-600 mb-1">Ciudad y dirección</label>
       <div className="flex items-center gap-1">
-        {/* Ciudad 30% */}
-        <div className="relative shrink-0" style={{ width: '30%' }} ref={ref}>
+        {/* Ciudad flex:3 */}
+        <div className="relative" style={{ flex: 3, minWidth: 0 }} ref={ref}>
           <input
             type="text"
             className="w-full px-2 py-3 border-2 border-gray-200 rounded-xl text-[16px] outline-none transition-colors focus:border-purple-600"
@@ -154,37 +154,37 @@ export default function CityAndAddress({
         </div>
         {/* Tipo de vía 30% — searchable like city */}
         <ViaSearch value={tipoVia} onChange={v => onAddressChange('tipoVia', v)} />
-        {/* Num1 16% */}
+        {/* Num1 flex:1.6 */}
         <input
           type="text"
           value={num1}
           onChange={e => onAddressChange('num1', e.target.value)}
           placeholder="127c"
           maxLength={15}
-          style={{ width: '16%' }}
-          className="shrink-0 px-1 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
+          style={{ flex: 1.6, minWidth: 0 }}
+          className="px-1 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
         />
         <span className="text-base font-bold text-gray-400 shrink-0">#</span>
-        {/* Num2 12% */}
+        {/* Num2 flex:1.2 */}
         <input
           type="text"
           value={num2}
           onChange={e => onAddressChange('num2', e.target.value)}
           placeholder="78"
           maxLength={10}
-          style={{ width: '12%' }}
-          className="shrink-0 px-1 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
+          style={{ flex: 1.2, minWidth: 0 }}
+          className="px-1 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
         />
         <span className="text-base font-bold text-gray-400 shrink-0">-</span>
-        {/* Num3 12% */}
+        {/* Num3 flex:1.2 */}
         <input
           type="text"
           value={num3}
           onChange={e => onAddressChange('num3', e.target.value)}
           placeholder="97"
           maxLength={5}
-          style={{ width: '12%' }}
-          className="shrink-0 px-1 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
+          style={{ flex: 1.2, minWidth: 0 }}
+          className="px-1 py-3 border-2 border-gray-200 rounded-xl text-[16px] text-center outline-none transition-colors focus:border-purple-600"
         />
       </div>
       {address && (
