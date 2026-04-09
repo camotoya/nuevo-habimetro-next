@@ -144,7 +144,7 @@ export default function Home() {
     } catch (e) {
       clearInterval(iv);
       setLoading(false);
-      alert('Error al generar el resultado: ' + (e as Error).message);
+      alert('El servicio de generación de resultados no está disponible en este momento. El endpoint POST habimetro requiere una API key que necesita ser configurada. Contacta al equipo de backend.\n\nError: ' + (e as Error).message);
     }
   }, [formData, apiState, updateApi, setLoading, setLoadingMsg, setShowResults]);
 

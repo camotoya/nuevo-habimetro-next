@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Montserrat, Roboto } from 'next/font/google';
 import './globals.css';
 
@@ -15,15 +16,19 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'Habi — Avalúo gratis de tu inmueble',
-  description: 'Conoce el valor real de tu casa o apartamento en minutos. Avalúo gratuito, en línea, con datos del mercado colombiano.',
+  title: 'Habi — Conoce el valor de tu inmueble',
+  description: 'Conoce el valor real de tu casa o apartamento en minutos. Gratuito, en línea, con datos del mercado colombiano.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${montserrat.variable} ${roboto.variable} antialiased`}>
+      <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+      </head>
       <body className="min-h-screen bg-gray-50 font-[family-name:var(--font-roboto)]">
         {children}
+        <Script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" strategy="beforeInteractive" />
       </body>
     </html>
   );
