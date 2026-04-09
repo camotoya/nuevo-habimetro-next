@@ -4,7 +4,7 @@ import { cn, asset } from '@/lib/utils';
 const TYPES = [
   { value: 1, label: 'Apartamento', img: '/icons/apto.png', imgSel: '/icons/apto_sel.png' },
   { value: 2, label: 'Casa', img: '/icons/casa.png', imgSel: '/icons/casa_sel.png' },
-  { value: 3, label: 'Apto en conjunto', img: '/icons/apto_conj.png', imgSel: '/icons/apto_conj_sel.png' },
+  { value: 3, label: 'Apartamento en conjunto', img: '/icons/apto_conj.png', imgSel: '/icons/apto_conj_sel.png' },
   { value: 4, label: 'Casa en conjunto', img: '/icons/casa_conj.png', imgSel: '/icons/casa_conj_sel.png' },
 ];
 
@@ -34,7 +34,7 @@ export default function PropertyTypeSelector({ value, onChange }: Props) {
             <img
               src={asset(value === t.value ? t.imgSel : t.img)}
               alt={t.label}
-              className="h-7 w-auto flex-shrink-0"
+              className="h-[42px] w-auto flex-shrink-0"
             />
           </button>
         ))}
