@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import type { AvaluoData, PricingData } from '@/types';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, asset } from '@/lib/utils';
 
 interface ResultsHeroProps {
   avaluo: AvaluoData;
@@ -47,13 +46,7 @@ export default function ResultsHero({ avaluo, pricing }: ResultsHeroProps) {
     <section className="rounded-2xl bg-gradient-to-br from-[#7C01FF] to-[#3D0099] text-white p-6 sm:p-10">
       {/* Logo */}
       <div className="flex justify-center mb-6">
-        <Image
-          src="/logo-habi.png"
-          alt="Habi"
-          width={96}
-          height={28}
-          className="h-7 w-auto brightness-0 invert"
-        />
+        <img src={asset('/logo-habi.png')} alt="Habi" className="h-7 w-auto brightness-0 invert" />
       </div>
 
       {/* Label */}

@@ -1,6 +1,5 @@
 'use client';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn, asset } from '@/lib/utils';
 
 const TYPES = [
   { value: 1, label: 'Apartamento', img: '/icons/apto.png', imgSel: '/icons/apto_sel.png' },
@@ -31,11 +30,9 @@ export default function PropertyTypeSelector({ value, onChange }: Props) {
                 : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'
             )}
           >
-            <Image
-              src={value === t.value ? t.imgSel : t.img}
+            <img
+              src={asset(value === t.value ? t.imgSel : t.img)}
               alt={t.label}
-              width={48}
-              height={48}
               className="h-12 w-auto"
             />
             {t.label}
