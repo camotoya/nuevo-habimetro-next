@@ -19,7 +19,7 @@ const INTENTS = [
 ];
 
 const inputBase =
-  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-[15px] bg-white focus:border-purple-600 focus:outline-none transition-colors';
+  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-base bg-white focus:border-purple-600 focus:outline-none transition-colors';
 
 export default function StepContact({ formData, onChange }: Props) {
   return (
@@ -76,7 +76,7 @@ export default function StepContact({ formData, onChange }: Props) {
               type="button"
               onClick={() => onChange('intent', intent.value)}
               className={cn(
-                'flex items-center gap-2.5 rounded-xl border-2 px-3.5 py-3 text-[15px] font-medium transition-all',
+                'flex items-center gap-2.5 rounded-xl border-2 px-3.5 py-3 text-base font-medium transition-all',
                 formData.intent === intent.value
                   ? 'border-purple-600 bg-purple-50 text-purple-700'
                   : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'

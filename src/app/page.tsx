@@ -181,7 +181,7 @@ export default function Home() {
     return (
       <>
         <Header />
-        <div className="max-w-[640px] mx-auto px-4 py-8 space-y-6">
+        <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
           <ResultsHero avaluo={hm.avaluo} pricing={hm.pricing} />
           <EligibilityCards discarded={apiState.discarded} georef={apiState.georef} />
           <div className="space-y-5">
@@ -206,13 +206,11 @@ export default function Home() {
   }
 
   // ── Form (single column, centered) ──
-  const hasResults = !!apiState.georef;
-
   return (
     <>
       <Header />
       <Hero />
-      <main className="max-w-[640px] mx-auto px-4 py-8 space-y-6">
+      <main className="max-w-3xl mx-auto px-4 py-8 space-y-6">
         {/* Form card */}
         <div className="bg-white rounded-2xl p-5 sm:p-7 shadow-sm">
           <ProgressBar step={currentStep} totalSteps={TOTAL_STEPS} />
@@ -222,8 +220,8 @@ export default function Home() {
           {currentStep === 1 && (
             <div className="space-y-5">
               <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Cuéntanos sobre tu inmueble</h2>
-                <p className="text-sm text-gray-500">Con estos datos identificamos tu propiedad y su entorno.</p>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] mb-1">Cuéntanos sobre tu inmueble</h2>
+                <p className="text-[15px] text-gray-500">Con estos datos identificamos tu propiedad y su entorno.</p>
               </div>
               <PropertyTypeSelector value={formData.propertyType} onChange={v => updateForm({ propertyType: v })} />
               <CitySearch cities={apiState.cities} value={formData.city} onChange={c => updateForm({ city: c.name, cityName: c.label, cityId: c.id })} />
@@ -236,8 +234,8 @@ export default function Home() {
           {currentStep === 2 && (
             <div className="space-y-5">
               <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Características de tu inmueble</h2>
-                <p className="text-sm text-gray-500">Con estas características estimamos un rango de valor.</p>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] mb-1">Características de tu inmueble</h2>
+                <p className="text-[15px] text-gray-500">Con estas características estimamos un rango de valor.</p>
               </div>
               {apiState.catastral && (formData.propertyType === 1 || formData.propertyType === 3) && (
                 <StepCatastral
@@ -258,8 +256,8 @@ export default function Home() {
           {currentStep === 3 && (
             <div className="space-y-5">
               <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">Detalles adicionales</h2>
-                <p className="text-sm text-gray-500">Estos detalles afinan la precisión del resultado.</p>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] mb-1">Detalles adicionales</h2>
+                <p className="text-[15px] text-gray-500">Estos detalles afinan la precisión del resultado.</p>
               </div>
               <StepDetails formData={formData} onChange={(f, v) => updateForm({ [f]: v })} />
               <div className="flex gap-3">
@@ -273,8 +271,8 @@ export default function Home() {
           {currentStep === 4 && (
             <div className="space-y-5">
               <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-xl mb-1">¿A dónde enviamos tu resultado?</h2>
-                <p className="text-sm text-gray-500">Déjanos tus datos y en segundos tendrás tu reporte.</p>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] mb-1">¿A dónde enviamos tu resultado?</h2>
+                <p className="text-[15px] text-gray-500">Déjanos tus datos y en segundos tendrás tu reporte.</p>
               </div>
               <StepContact formData={formData} onChange={(f, v) => updateForm({ [f]: v })} />
               <div className="flex gap-3">
@@ -285,17 +283,15 @@ export default function Home() {
           )}
         </div>
 
-        {/* Result tabs (appear after step 1 completion) */}
-        {hasResults && (
-          <ResultTabs
-            georef={apiState.georef!}
-            pois={apiState.pois}
-            catastral={apiState.catastral}
-            medianZone={apiState.medianZone}
-            address={formData.address}
-            project={apiState.georef?.project || ''}
-          />
-        )}
+        {/* Result tabs — always visible, starts with Colombia map */}
+        <ResultTabs
+          georef={apiState.georef}
+          pois={apiState.pois}
+          catastral={apiState.catastral}
+          medianZone={apiState.medianZone}
+          address={formData.address}
+          project={apiState.georef?.project || ''}
+        />
       </main>
       <Footer />
     </>

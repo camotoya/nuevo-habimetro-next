@@ -34,7 +34,7 @@ export default function CitySearch({ cities, value, onChange }: Props) {
       <div className="relative">
         <input
           type="text"
-          className="w-full px-3.5 py-3 border-2 border-gray-200 rounded-xl text-[15px] outline-none transition-colors focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+          className="w-full px-3.5 py-3 border-2 border-gray-200 rounded-xl text-base outline-none transition-colors focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
           placeholder="Escribe o selecciona tu ciudad"
           value={query}
           autoComplete="off"

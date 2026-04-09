@@ -19,7 +19,7 @@ export default function StructuredAddress({ tipoVia, num1, num2, num3, address, 
         <select
           value={tipoVia}
           onChange={e => onChange('tipoVia', e.target.value)}
-          className="w-full sm:w-[140px] px-3 py-3 border-2 border-gray-200 rounded-xl text-[15px] outline-none bg-white transition-colors focus:border-purple-600 appearance-none"
+          className="w-full sm:w-[140px] px-3 py-3 border-2 border-gray-200 rounded-xl text-base outline-none bg-white transition-colors focus:border-purple-600 appearance-none"
         >
           <option value="" disabled>Tipo de vía</option>
           {TIPOS_VIA.map(v => (
@@ -32,7 +32,7 @@ export default function StructuredAddress({ tipoVia, num1, num2, num3, address, 
           onChange={e => onChange('num1', e.target.value)}
           placeholder="Ej: 127 c bis"
           maxLength={15}
-          className="flex-1 min-w-[70px] px-3 py-3 border-2 border-gray-200 rounded-xl text-[15px] text-center outline-none transition-colors focus:border-purple-600"
+          className="flex-1 min-w-[70px] px-3 py-3 border-2 border-gray-200 rounded-xl text-base text-center outline-none transition-colors focus:border-purple-600"
         />
         <span className="text-lg font-bold text-gray-400">#</span>
         <input
@@ -41,7 +41,7 @@ export default function StructuredAddress({ tipoVia, num1, num2, num3, address, 
           onChange={e => onChange('num2', e.target.value)}
           placeholder="Ej: 78"
           maxLength={15}
-          className="flex-1 min-w-[60px] px-3 py-3 border-2 border-gray-200 rounded-xl text-[15px] text-center outline-none transition-colors focus:border-purple-600"
+          className="flex-1 min-w-[60px] px-3 py-3 border-2 border-gray-200 rounded-xl text-base text-center outline-none transition-colors focus:border-purple-600"
         />
         <span className="text-lg font-bold text-gray-400">-</span>
         <input
@@ -50,7 +50,7 @@ export default function StructuredAddress({ tipoVia, num1, num2, num3, address, 
           onChange={e => onChange('num3', e.target.value)}
           placeholder="Ej: 97"
           maxLength={10}
-          className="flex-[0.7] min-w-[50px] px-3 py-3 border-2 border-gray-200 rounded-xl text-[15px] text-center outline-none transition-colors focus:border-purple-600"
+          className="flex-[0.7] min-w-[50px] px-3 py-3 border-2 border-gray-200 rounded-xl text-base text-center outline-none transition-colors focus:border-purple-600"
         />
       </div>
       {address && (

@@ -16,7 +16,7 @@ export default function StepCatastral({ catastral, propertyType, onSelectUnit }:
   if (propertyType === 2 || propertyType === 4) {
     return (
       <div className="rounded-xl border-2 border-gray-200 bg-gray-50 p-6 text-center">
-        <p className="text-[15px] text-gray-500">
+        <p className="text-base text-gray-500">
           Datos catastrales no aplican para casas
         </p>
       </div>
@@ -27,7 +27,7 @@ export default function StepCatastral({ catastral, propertyType, onSelectUnit }:
   if (!catastral || catastral.torres.length === 0) {
     return (
       <div className="rounded-xl border-2 border-gray-200 bg-gray-50 p-6 text-center">
-        <p className="text-[15px] text-gray-500">
+        <p className="text-base text-gray-500">
           No encontramos datos catastrales. Continúa con los datos manualmente.
         </p>
       </div>
@@ -47,7 +47,7 @@ export default function StepCatastral({ catastral, propertyType, onSelectUnit }:
     <div className="space-y-4">
       {/* Building info */}
       <div className="rounded-xl border-2 border-gray-200 bg-white p-4 space-y-2">
-        <h3 className="text-[15px] font-semibold text-gray-700">Información del edificio</h3>
+        <h3 className="text-base font-semibold text-gray-700">Información del edificio</h3>
         <div className="grid grid-cols-2 gap-3 text-sm text-gray-600">
           {torre.complemento && (
             <div>
@@ -81,7 +81,7 @@ export default function StepCatastral({ catastral, propertyType, onSelectUnit }:
           <select
             value={selectedTorre}
             onChange={(e) => setSelectedTorre(Number(e.target.value))}
-            className="w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-[15px] bg-white focus:border-purple-600 focus:outline-none transition-colors"
+            className="w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-base bg-white focus:border-purple-600 focus:outline-none transition-colors"
           >
             {catastral.torres.map((t, i) => (
               <option key={i} value={i}>
@@ -101,7 +101,7 @@ export default function StepCatastral({ catastral, propertyType, onSelectUnit }:
           <select
             defaultValue=""
             onChange={(e) => handleUnitChange(e.target.value)}
-            className="w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-[15px] bg-white focus:border-purple-600 focus:outline-none transition-colors"
+            className="w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-base bg-white focus:border-purple-600 focus:outline-none transition-colors"
           >
             <option value="" disabled>
               Selecciona apartamento

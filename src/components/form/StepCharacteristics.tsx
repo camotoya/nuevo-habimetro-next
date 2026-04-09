@@ -14,7 +14,7 @@ interface Props {
 }
 
 const inputBase =
-  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-[15px] bg-white focus:border-purple-600 focus:outline-none transition-colors';
+  'w-full border-2 border-gray-200 rounded-xl px-3.5 py-3 text-base bg-white focus:border-purple-600 focus:outline-none transition-colors';
 
 function SelectField({
   label,
